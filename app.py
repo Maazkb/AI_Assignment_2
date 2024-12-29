@@ -13,21 +13,17 @@ url = 'https://raw.githubusercontent.com/Maazkb/AI_Assignment_2/refs/heads/main/
 response = requests.get(url)
 
 if response.status_code == 200:
-    st.write(f"File downloaded successfully, size: {len(response.content)} bytes")
     data = pd.read_excel(io.BytesIO(response.content))
 else:
     st.error("Failed to load the Excel file.")
     data = None
 
 if data is not None:
-    st.write("Data loaded successfully")
-    st.write("Checking for missing values...")
-    st.write(data.isnull().sum())
     
-    st.write("Checking columns...")
-    st.write(data.columns)
-    
-    st.write(data.head())
+    data.isnull().sum()
+  
+    sdata.columns
+
 
     plt.figure(figsize=(8, 6))
     data['Account Type'].value_counts().plot.pie(autopct='%1.1f%%', startangle=90, cmap='Set3')
