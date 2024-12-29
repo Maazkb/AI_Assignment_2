@@ -21,8 +21,6 @@ else:
 if data is not None:
     
     data.isnull().sum()
-  
-    data.columns
 
 
     plt.figure(figsize=(8, 6))
