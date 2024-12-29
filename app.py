@@ -8,7 +8,6 @@ import io
 
 st.title('Transaction Analysis Dashboard')
 
-# Load the Excel file from GitHub using a URL
 url = 'https://raw.githubusercontent.com/Maazkb/AI_Assignment_2/refs/heads/main/Enhanced_Dummy_HBL_Data.xlsx'
 response = requests.get(url)
 
@@ -21,14 +20,14 @@ else:
 if data is not None:
     st.write(data.head())
 
-    # Account Type Distribution Pie Chart
+  
     fig, ax = plt.subplots(figsize=(8, 6))
     data['Account Type'].value_counts().plot.pie(autopct='%1.1f%%', startangle=90, cmap='Set3', ax=ax)
     ax.set_title('Account Type Distribution')
     ax.set_ylabel('')
     st.pyplot(fig)
 
-    # Transaction Flow by Beneficiary Bank
+   
     top_beneficiary_banks = (
         data.groupby(['Region', 'Transaction To'])['Credit']
         .sum()
@@ -45,14 +44,13 @@ if data is not None:
     ax.set_title('Top 5 Beneficiary Banks by Credit Transactions per Region')
     st.pyplot(fig)
 
-    # Geographic Heatmap of Transactions
     transaction_heatmap_data = data.groupby('Region')[['Credit', 'Debit']].sum()
     fig, ax = plt.subplots(figsize=(8, 6))
     sns.heatmap(transaction_heatmap_data, annot=True, fmt='.0f', cmap='YlGnBu', ax=ax)
     ax.set_title('Geographic Heatmap of Transactions (Credit and Debit)')
     st.pyplot(fig)
 
-    # Anomalies in Transactions (Z-scores)
+
     from scipy.stats import zscore
 
     data['Credit_Z'] = zscore(data['Credit'])
@@ -79,7 +77,7 @@ if data is not None:
     ax.legend()
     st.pyplot(fig)
 
-    # Comparative Analysis of Transaction Types by Account Type
+    
     fig, ax = plt.subplots(figsize=(12, 6))
     credit_debit_data = data.melt(
         id_vars=['Account Type'], 
@@ -92,7 +90,7 @@ if data is not None:
     ax.set_xticklabels(ax.get_xticklabels(), rotation=45)
     st.pyplot(fig)
 
-    # Time-Based Analysis (if applicable)
+   
     if 'Date' in data.columns:
         data['Date'] = pd.to_datetime(data['Date'])
         time_analysis_data = data.groupby('Date')[['Credit', 'Debit']].sum()
@@ -107,7 +105,6 @@ if data is not None:
         ax.grid(True)
         st.pyplot(fig)
 
-    # Customer Insights
     customer_insights_data = data.groupby('Account Type')[['Credit', 'Debit']].sum()
     customer_insights_data.plot(
         kind='bar', stacked=True, figsize=(10, 6), cmap='viridis', edgecolor='k', ax=ax
