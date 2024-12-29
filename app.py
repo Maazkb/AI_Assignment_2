@@ -4,7 +4,7 @@ import seaborn as sns
 import numpy as np
 
 
-data = pd.read_excel('/content/Enhanced_Dummy_HBL_Data.xlsx')
+data = pd.read_excel('https://github.com/Maazkb/AI_Assignment_2/raw/refs/heads/main/Enhanced_Dummy_HBL_Data.xlsx')
 
 
 print(data.head())
